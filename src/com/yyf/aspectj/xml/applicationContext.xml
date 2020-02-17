@@ -1,0 +1,27 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="UserDao" class="com.yyf.aspectj.xml.target.B_UserDao"/>
+
+    <bean id="myAspect" class="com.yyf.aspectj.xml.Aspect.MyAspect"/>
+
+    <aop:config>
+        <aop:aspect ref="myAspect">
+
+            <aop:pointcut id="myPointCut"
+                          expression="execution(* com.yyf.aspectj.xml.target.*.*(..))"/>
+            <aop:before method="myBefore" pointcut-ref="myPointCut"/>
+            <aop:after-returning method="myAfterReturning" pointcut-ref="myPointCut" returning="returnVal"/>
+            <aop:around pointcut-ref="myPointCut"
+                        method="myAround"/>
+            <aop:after-throwing method="myAfterThrowing" pointcut-ref="myPointCut" throwing="e"/>
+            <aop:after method="myAfter" pointcut-ref="myPointCut"/>
+
+        </aop:aspect>
+    </aop:config>
+
+</beans>

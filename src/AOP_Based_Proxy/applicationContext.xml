@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="userDao" class="JDK_Dynamic_Proxy.B_UserDao"/>
+    <bean id="aspect" class="AOP_Based_Proxy.Aspect"/>
+    <bean id="userDaoProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="proxyInterfaces" value="JDK_Dynamic_Proxy.I_UserDao"/>
+        <property name="target" ref="userDao"/>
+        <property name="interceptorNames" value="aspect"/>
+        <property name="proxyTargetClass" value="true"/>
+    </bean>
+
+</beans>
